@@ -607,53 +607,97 @@ const SpringModal = ({ isOpen, setIsOpen }) => {
                 </div>
               )}
 
-              {currentStep === 6 && (
-                <div className='px-4 sm:px-8'>
-                  <h3 className='text-sm sm:text-2xl font-medium mt-3 mb-3 text-center text-gray-900'>
-                    Choose Integration Platform
-                  </h3>
-                  {errors.selectedPlatforms && (
-                    <p className='text-red-500 text-xs sm:text-sm text-center mb-2'>
-                      {errors.selectedPlatforms}
-                    </p>
-                  )}
-                  <p className='sm:block hidden text-gray-700 text-center mb-4 text-xs sm:text-sm'>
-                  Seamlessly connect your world with GenFox AI’s integration platform bringing your apps, data, and tasks together for smarter living.
-                  </p>
-                  <div className='grid grid-cols-2 gap-4 sm:gap-6'>
-                    {[
-                      { name: 'Google', src: google },
-                      { name: 'WhatsApp', src: whatsapp },
-                      { name: 'Apple', src: apple },
-                      { name: 'Outlook', src: outlook },
-                    ].map((platform) => (
-                      <div
-                        key={platform.name}
-                        className={`border-4 rounded-lg p-2 cursor-pointer transition-shadow relative ${
-                          formData.selectedPlatforms.includes(platform.name)
-                            ? 'border-blue-400'
-                            : 'border-transparent'
-                        } hover:shadow-lg`}
-                        onClick={() => togglePlatform(platform.name)}
-                        aria-label={`Select ${platform.name} platform`}
-                      >
-                        <img
-                          src={platform.src}
-                          alt={platform.name}
-                          className='h-[35px] sm:h-20 rounded-lg mx-auto'
-                        />
-                        <p className='text-center text-sm font-medium text-gray-900 mt-2'>
-                          {platform.name}
-                        </p>
-                        {/* Checkmark Overlay */}
-                        {formData.selectedPlatforms.includes(platform.name) && (
-                          <img src={check} alt="check" className='absolute top-2 right-2 h-5'   />
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+{currentStep === 6 && (
+  <div className='px-4 sm:px-8'>
+    {/* Subheading */}
+    <h3 className='text-sm sm:text-2xl font-medium mt-3 mb-3 text-center text-gray-900'>
+      Choose Integration Platform
+    </h3>
+    {errors.selectedPlatforms && (
+      <p className='text-red-500 text-xs sm:text-sm text-center mb-2'>
+        {errors.selectedPlatforms}
+      </p>
+    )}
+
+    {/* Description */}
+    <p className='text-gray-700 text-center mb-4 text-xs sm:text-sm'>
+      Seamlessly connect your world with GenFox AI’s integration platform bringing your apps, data, and tasks together for smarter living.
+    </p>
+
+    {/* Platform Integration Cards */}
+    <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+      {[
+        {
+          name: 'WhatsApp',
+          src: whatsapp,
+          website: 'whatsapp.com',
+          description:
+            'Seamlessly integrated with WhatsApp, GenFox enhances messaging capabilities, bringing smart assistance directly to the platform you use most. Manage tasks, track progress, and stay connected effortlessly.',
+        },
+        {
+          name: 'Apple',
+          src: apple,
+          website: 'apple.com',
+          description:
+            'GenFox integrates effortlessly with Apple services, leveraging their robust ecosystem to enhance your experience. From syncing with Apple Health to seamless calendar management, it’s built to work smarter for you.',
+        },
+        {
+          name: 'Google',
+          src: google,
+          website: 'google.com',
+          description:
+            'GenFox integrates seamlessly with Google’s ecosystem, empowering you with tools for enhanced productivity, streamlined workflows, and effortless collaboration.',
+        },
+        {
+          name: 'Outlook',
+          src: outlook,
+          website: 'outlook.com',
+          description:
+            'GenFox integrates with Outlook, bringing professional email and scheduling tools right to your fingertips. Manage your inbox and calendar effortlessly for a more organized day.',
+        },
+      ].map((platform) => (
+        <div
+          key={platform.name}
+          className={`relative cursor-pointer shadow-md border border-gray-200 rounded-2xl p-4 transition-transform transform hover:scale-105 ${
+            formData.selectedPlatforms.includes(platform.name)
+              ? 'ring-2 ring-blue-400'
+              : ''
+          }`}
+          onClick={() => togglePlatform(platform.name)}
+          aria-label={`Select ${platform.name} platform`}
+        >
+          {/* Checkbox Tick */}
+          {formData.selectedPlatforms.includes(platform.name) && (
+            <img
+              src={check}
+              alt="check"
+              className='absolute top-3 right-3 h-5 w-5'
+            />
+          )}
+
+          {/* Platform Logo and Name */}
+          <div className='flex items-center gap-4'>
+            <img
+              src={platform.src}
+              alt={`${platform.name}_logo`}
+              className='h-12 w-12 rounded-full'
+            />
+            <div>
+              <h4 className='font-semibold text-lg text-gray-900'>
+                {platform.name}
+              </h4>
+              <p className='text-sm text-gray-500'>{platform.website}</p>
+            </div>
+          </div>
+
+          {/* Platform Description */}
+          <p className='text-xs text-gray-600 mt-3'>{platform.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
 
               {/* Step 7 */}
               {currentStep === 7 && (
