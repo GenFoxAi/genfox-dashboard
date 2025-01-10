@@ -1,10 +1,32 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
 export const FloatingNav = ({ className }) => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // console.log("Scroll position:", window.scrollY); 
+      setIsVisible(window.scrollY <= 1200);
+    };
+
+    
+    window.addEventListener("scroll", handleScroll);
+
+   
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  if (!isVisible) {
+     
+    return null; 
+  }
+
   return (
     <motion.div
       initial={{
